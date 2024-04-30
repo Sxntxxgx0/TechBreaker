@@ -34,8 +34,6 @@ export const finisSession = async (id, time) => {
     .eq("id", id)
     .select();
 
-  console.log(data, error);
-
   if (error) return false;
 
   return data;
