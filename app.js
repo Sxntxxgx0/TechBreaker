@@ -6,11 +6,11 @@ import {
 } from "./controllers/sessions.js";
 import { createDevice, getDevice } from "./controllers/device.js";
 
-
 const app = express();
 
 // middleware
 app.use(json());
+app.use(express.static("src"));
 
 app.get("/sessions/:id", async (req, res) => {
   const id = req.params.id;
