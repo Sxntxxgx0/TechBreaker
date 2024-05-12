@@ -1,6 +1,12 @@
 import supabase from "../config/index.js";
 
-export const getSession = async (id) => {
+export const getSession = async () => {
+  let { data: Sessions, error } = await supabase.from("Sessions").select("*");
+
+  return Sessions;
+};
+
+export const getSessionById = async (id) => {
   let { data: Sessions, error } = await supabase
     .from("Sessions")
     .select("*")

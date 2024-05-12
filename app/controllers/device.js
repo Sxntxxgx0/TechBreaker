@@ -1,6 +1,14 @@
 import supabase from "../config/index.js";
 
-export const getDevice = async (id) => {
+export const getDevice = async () => {
+  const { data, error } = await supabase.from("Devices").select("*");
+
+  if (error) return false;
+
+  return data;
+};
+
+export const getDeviceById = async (id) => {
   const { data, error } = await supabase
     .from("Devices")
     .select("*")
@@ -11,7 +19,6 @@ export const getDevice = async (id) => {
   return data;
 };
 
-
 export const createDevice = async (name) => {
   const { data, error } = await supabase
     .from("Devices")
@@ -21,9 +28,8 @@ export const createDevice = async (name) => {
       },
     ])
     .select("id");
-  
-  console.log(data, error);
 
+  console.log(data, error);
 
   if (error) return false;
 

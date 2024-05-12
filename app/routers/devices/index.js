@@ -1,7 +1,17 @@
-import { createDevice, getDevice } from "../../controllers/device.js";
+import {
+  getDevice,
+  createDevice,
+  getDeviceById,
+} from "../../controllers/device.js";
 import { Router } from "express";
 
 const router = Router();
+
+router.get("/", async (req, res) => {
+  const data = await getDevice();
+
+  if (data) return res.status(200).json(data);
+});
 
 router.post("/", async (req, res) => {
   const data = req.body;
@@ -18,7 +28,7 @@ router.get("/:id", async (req, res) => {
 
   if (!id) return res.status(400).json({});
 
-  const result = await getDevice(id);
+  const result = await getDeviceById(id);
 
   if (result) return res.status(201).json(result);
 });
