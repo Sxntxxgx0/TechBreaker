@@ -1,0 +1,17 @@
+{
+  "folders": [
+    {
+      "name": "TechBreaker Server",
+      "path": "../app/"
+    },
+    {
+      "name": "TechBreaker Hardware",
+      "path": "../hardware"
+    },
+    {
+      "name": "ROOT",
+      "path": "../"
+    }
+  ],
+  "settings": {}
+}

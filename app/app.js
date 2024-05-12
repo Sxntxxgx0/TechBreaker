@@ -14,11 +14,11 @@ app.use(express.static("src"));
 
 app.get("/sessions/:id", async (req, res) => {
   const id = req.params.id;
-  const active = req.query.active;
 
-  if (!id || active === undefined) return res.status(400).json({});
-
-  const data = await getSession(id, active);
+  if (!id) return res.status(400).json({error: "id not found!"});
+  
+  const data = await getSession(id);
+  console.log(data)
 
   return res.status(200).json(data);
 });
@@ -68,5 +68,5 @@ app.get("/device/:id", async (req, res) => {
 
 const port = 5000;
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log(`Server is running on port http://localhost:${port}/`);
 });
