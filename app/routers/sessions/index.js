@@ -1,12 +1,13 @@
+import { Router } from "express";
 import {
   getSessionById,
   getSession,
   createSession,
   finisSession,
+  updateSession,
 } from "../../controllers/sessions.js";
-import express from "express";
 
-const router = express.Router();
+const router = Router();
 
 router.get("/", async (req, res) => {
   const data = await getSession();
@@ -20,9 +21,11 @@ router.post("/", async (req, res) => {
   if (!data.company || !data.device || !data.phones)
     return res.status(400).json({});
 
-  const result = await createSession(data);
+  const result = await createSession({ ...data, isTerminal: false });
 
   if (result) return res.status(201).json({ id: result });
+
+  return res.status(400).json({});
 });
 
 router.get("/:id", async (req, res) => {
@@ -37,15 +40,35 @@ router.get("/:id", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-  const id = req.params.id;
+  const id = Number(req.params.id);
   const data = req.body;
 
-  if (!data.time || !id) return res.status(400).json({});
+  if (!id) return res.status(400).json({});
 
-  const result = await finisSession(id, data.time);
+  const result = await updateSession(id, data.phone_n);
 
-  console.log(result);
-  if (result) return res.status(201).json({});
+  if (result) {
+    return res.status(201).json({
+      message: "Session updating!",
+      id: id,
+    });
+  }
+
+  return res.status(400).json({});
+});
+
+router.put("/end/:id", async (req, res) => {
+  const id = req.params.id;
+
+  if (!id) return res.status(400).json({});
+
+  const result = await finisSession(id);
+
+  if (result)
+    return res.status(201).json({
+      message: "Session finished!",
+      id: id,
+    });
 });
 
 export default router;
