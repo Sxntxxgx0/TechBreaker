@@ -84,11 +84,11 @@ export const updateSession = async (id, phone_n) => {
   return true;
 };
 
-export const finisSession = async (id) => {
-  const today = new Date().toISOString();
+export const finisSession = async (id,time) => {
+  // const today = new Date().toISOString();
   const { data, error } = await supabase
     .from("Sessions")
-    .update({ isTerminal: true, whenFinish: today })
+    .update({ isTerminal: true, whenFinish: time})
     .eq("id", id)
     .select();
 
