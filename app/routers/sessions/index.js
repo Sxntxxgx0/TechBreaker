@@ -59,10 +59,11 @@ router.put("/:id", async (req, res) => {
 
 router.put("/end/:id", async (req, res) => {
   const id = req.params.id;
+  const data = req.body;
 
-  if (!id) return res.status(400).json({});
+  if (!data.time || !id) return res.status(400).json({});
 
-  const result = await finisSession(id);
+  const result = await finisSession(id, data.time);
 
   if (result)
     return res.status(201).json({
