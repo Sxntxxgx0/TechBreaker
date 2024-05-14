@@ -1,9 +1,9 @@
+import { Router } from "express";
 import {
   getDevice,
   createDevice,
   getDeviceById,
 } from "../../controllers/device.js";
-import { Router } from "express";
 
 const router = Router();
 
