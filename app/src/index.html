@@ -319,10 +319,22 @@
                         <div
                           class="text-xs font-weight-bold text-primary text-uppercase mb-1"
                         >
-                          Ganancias (Monthly)
+                          Cantidad de dispositivos
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                          $40,000
+                          <script>
+                            const urlRoute = "http://localhost:5000/api/devices";
+                            fetch(urlRoute)
+                              .then((response) => response.json())
+                              .then((data) => {
+                                const arrayLength = data.length;
+                                document.getElementById("cantidadDatos").innerText = arrayLength;
+                              })
+                              .catch((error) => {
+                                console.error('Error al obtener los datos:', error);
+                              })     
+                          </script>
+                          <p id="cantidadDatos"></p>
                         </div>
                       </div>
                       <div class="col-auto">
@@ -745,7 +757,12 @@
         <footer class="sticky-footer bg-white">
           <div class="container my-auto">
             <div class="copyright text-center my-auto">
-              <span>Copyright &copy; Tech Breaker <script>document.write(new Date().getFullYear())</script></span>
+              <span
+                >Copyright &copy; Tech Breaker
+                <script>
+                  document.write(new Date().getFullYear());
+                </script></span
+              >
             </div>
           </div>
         </footer>
